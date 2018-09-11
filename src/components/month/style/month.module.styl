@@ -1,0 +1,37 @@
+$weekDaysHeight = 30px;
+$headerMonthHeight = 30px;
+
+.month {
+  margin: 0 10px;
+  width: 210px;
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+}
+
+.headerMonth {
+  height: $headerMonthHeight;
+  line-height: $headerMonthHeight;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  cursor: default;
+}
+
+.headerWeekDays {
+  border-bottom: 1px grey solid;
+
+  span {
+    display: inline-block;
+    width: $weekDaysHeight;
+    height: $weekDaysHeight;
+    text-align: center;
+    line-height: $weekDaysHeight;
+    cursor: default;
+  }
+}
+
+.headerClickable {
+  cursor: pointer;
+  background-color: #FFF1BA;
+}

@@ -1,0 +1,44 @@
+$daysHeight = 30px;
+
+.day {
+  cursor: pointer;
+  display: inline-block;
+  width: $daysHeight;
+  height: $daysHeight;
+  text-align: center;
+  line-height: $daysHeight;
+}
+
+.dayDisabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.dayOff {
+  color: red;
+}
+
+.daySelected {
+  color: white;
+  background-color: lightskyblue;
+  opacity: 1;
+}
+
+.dayFirstSelected {
+  color: white;
+  background-color: blue;
+}
+
+.dayLastSelected {
+  color: white;
+  background-color: blue;
+}
+
+.dayClickable:hover {
+  color: white;
+  background-color: darkblue;
+}
+
+.dayHovered {
+  background-color: lightblue;
+}
