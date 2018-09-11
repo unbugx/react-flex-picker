@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Helps to build your own calendar by using prepared components and api to control them",
   "main": "dist/index.js",
-  "types" : "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "author": "Artem Sitnikov <seestein9@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -12,7 +12,7 @@
     "deploy-storybook": "storybook-to-ghpages",
     "deploy": "npm run build-storybook && npm run deploy-storybook -- --existing-output-dir=.out",
     "tslint": "tslint --fix -p tsconfig.json -t verbose",
-    "build": "./node_modules/.bin/tsc"
+    "build": "tsc"
   },
   "peerDependencies": {
     "moment": "^2.22.2",
@@ -49,5 +49,23 @@
     "gitUsername": "Artem Sitnikov",
     "gitEmail": "seestein9@gmail.com",
     "commitMessage": "deploy storybook"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unbugx/react-flex-picker.git"
+  },
+  "keywords": [
+    "datepicker",
+    "daypicker",
+    "monthpicker",
+    "picker",
+    "range",
+    "react-picker",
+    "range-picker"
+  ],
+  "bugs": {
+    "url": "https://github.com/unbugx/react-flex-picker/issues"
+  },
+  "homepage": "https://github.com/unbugx/react-flex-picker#readme"
 }
