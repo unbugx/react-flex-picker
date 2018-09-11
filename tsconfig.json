@@ -4,6 +4,7 @@
     "outDir": "./dist/",
     "sourceMap": false,
     "noImplicitAny": false,
+    "declaration": true,
     "target": "es5",
     "jsx": "react",
     "baseUrl": "./src",
@@ -13,5 +14,5 @@
   "include": [
     "./src/**/*"
   ],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules", "src/stories"]
 }

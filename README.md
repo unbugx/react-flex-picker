@@ -2,6 +2,8 @@
 
 ### Under active development
 
+For online demo go to https://unbugx.github.io/react-flex-picker/
+
 To run demo on your own computer:
 
 * Clone this repository

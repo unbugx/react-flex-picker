@@ -1,7 +1,9 @@
 {
   "name": "react-flex-picker",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "description": "Helps to build your own calendar by using prepared components and api to control them",
+  "main": "dist/index.js",
+  "types" : "dist/index.d.ts",
   "author": "Artem Sitnikov <seestein9@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -9,7 +11,8 @@
     "build-storybook": "build-storybook -c .storybook -o .out",
     "deploy-storybook": "storybook-to-ghpages",
     "deploy": "npm run build-storybook && npm run deploy-storybook -- --existing-output-dir=.out",
-    "tslint": "tslint --fix -p tsconfig.json -t verbose"
+    "tslint": "tslint --fix -p tsconfig.json -t verbose",
+    "build": "./node_modules/.bin/tsc"
   },
   "peerDependencies": {
     "moment": "^2.22.2",
