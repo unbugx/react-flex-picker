@@ -1,6 +1,6 @@
-# react-dates <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+# react-dates
 
-###Under active development
+### Under active development
 
 To run demo on your own computer:
 

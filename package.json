@@ -6,6 +6,9 @@
   "license": "MIT",
   "scripts": {
     "storybook": "start-storybook -p 9002 -c .storybook",
+    "build-storybook": "build-storybook -c .storybook -o .out",
+    "deploy-storybook": "storybook-to-ghpages",
+    "deploy": "npm run build-storybook && npm run deploy-storybook -- --existing-output-dir=.out",
     "tslint": "tslint --fix -p tsconfig.json -t verbose"
   },
   "peerDependencies": {
@@ -19,13 +22,14 @@
     "@storybook/addon-actions": "^3.4.10",
     "@storybook/addon-options": "^4.0.0-alpha.18",
     "@storybook/react": "^4.0.0-alpha.18",
+    "@storybook/storybook-deployer": "^2.3.0",
     "@types/react": "^16.4.11",
     "@types/storybook__react": "^3.0.9",
     "@types/stylus": "^0.48.30",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.2",
-    "moment": "^2.22.2",
     "classnames": "^2.2.6",
+    "moment": "^2.22.2",
     "react": "^16.4.2",
     "react-dom": "^16.5.0",
     "stylus": "^0.54.5",
@@ -37,5 +41,10 @@
     "typescript": "^3.0.3",
     "typings-for-css-modules-loader": "^1.7.0",
     "webpack": "^4.17.2"
+  },
+  "storybook-deployer": {
+    "gitUsername": "Artem Sitnikov",
+    "gitEmail": "seestein9@gmail.com",
+    "commitMessage": "deploy storybook"
   }
 }
