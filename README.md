@@ -1,4 +1,4 @@
-# react-dates
+# react-dates [![Build Status](https://travis-ci.org/unbugx/react-flex-picker.svg?branch=master)](https://travis-ci.org/unbugx/react-flex-picker)
 
 ### Under active development
 
