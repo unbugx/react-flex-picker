@@ -50,3 +50,4 @@ package-lock.json
 tsconfig.json
 tslint.json
 .travis.yml
+webpack.config.js

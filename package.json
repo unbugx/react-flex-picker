@@ -12,7 +12,7 @@
     "deploy-storybook": "storybook-to-ghpages",
     "deploy": "npm run build-storybook && npm run deploy-storybook -- --existing-output-dir=.out",
     "tslint": "tslint --fix -p tsconfig.json -t verbose",
-    "build": "tsc"
+    "build": "webpack -p"
   },
   "peerDependencies": {
     "moment": "^2.22.2",
@@ -32,6 +32,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.2",
     "classnames": "^2.2.6",
+    "clean-webpack-plugin": "^0.1.19",
     "moment": "^2.22.2",
     "react": "^16.4.2",
     "react-dom": "^16.5.0",
@@ -43,7 +44,8 @@
     "tslint-loader": "^3.6.0",
     "typescript": "^3.0.3",
     "typings-for-css-modules-loader": "^1.7.0",
-    "webpack": "^4.17.2"
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0"
   },
   "storybook-deployer": {
     "gitUsername": "Artem Sitnikov",
