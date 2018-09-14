@@ -1,6 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const libraryName = 'react-flex-picker';
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: path.join(__dirname, 'src/index.ts'),
@@ -12,13 +12,12 @@ module.exports = {
     library: '',
     libraryTarget: 'umd',
     umdNamedDefine: true
-    // libraryTarget: 'commonjs'
-    // filename: `${libraryName}.js`,
-    // libraryTarget: 'umd',
-    // umdNamedDefine: true
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
+    new ExtractTextPlugin({
+      filename: 'react-flex-picker.css',
+    }),
   ],
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.styl'],
@@ -76,17 +75,19 @@ module.exports = {
       {
         test: /\.styl$/,
         include: path.resolve(__dirname, 'src'),
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[name]___[local]'
-            }
-          },
-          'stylus-loader'
-        ]
+        use : ExtractTextPlugin.extract({
+          fallback : 'style-loader',
+          use : [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]___[local]--[hash:base64:5]'
+              }
+            },
+            'stylus-loader'
+          ]
+        }),
       }
     ]
   },
