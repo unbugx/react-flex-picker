@@ -54,10 +54,7 @@
     "commitMessage": "deploy storybook"
   },
   "dependencies": {
-    "moment": "^2.22.2",
-    "classnames": "^2.2.6",
-    "react": "^16.4.2",
-    "react-dom": "^16.5.0"
+    "classnames": "^2.2.6"
   },
   "repository": {
     "type": "git",
