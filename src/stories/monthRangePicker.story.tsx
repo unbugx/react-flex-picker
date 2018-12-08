@@ -79,6 +79,26 @@ storiesOf('MonthRangePicker', module)
       </PickerConsumer>
     </PickerProvider>
   ))
+  .add('With minimum and maximum days in range', () => (
+    <PickerProvider
+      onDatesChange={action('onDatesChange')}
+      pickerType='month'
+      unitCount={3}
+      showOutsideDays
+      minDaysCount={64}
+      maxDaysCount={107}
+    >
+      <PickerConsumer>
+        {({handlePrevUnit, handleNextUnit}) => (
+          <div className={styles.calendar}>
+            <div className={styles.right} onClick={handleNextUnit}>&rarr;</div>
+            <div className={styles.left} onClick={handlePrevUnit}>&larr;</div>
+            <MonthPickerController />
+          </div>
+        )}
+      </PickerConsumer>
+    </PickerProvider>
+  ))
   .add('With russian locale', () => (
     <PickerProvider
       onDatesChange={action('onDatesChange')}

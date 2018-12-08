@@ -23,12 +23,37 @@ export function isMonthHovered(month: Moment, startDate: Moment, endDate: Moment
 }
 
 export function isMonthDisabled(month: Moment, props: IYearProps) {
-  const {minDate, maxDate} = props;
+  const {minDate, maxDate, minDaysCount, maxDaysCount, startDate, endDate} = props;
 
   const firstMonthDay = moment(month).startOf('month');
   const lastMonthDay = moment(month).endOf('month');
 
   let isDisabled = false;
+
+  const minPrevAvailableMonth = moment(startDate).endOf('month').add(-minDaysCount + 1, 'day');
+  const minNextAvailableMonth = moment(startDate).startOf('month').add(minDaysCount - 1, 'day');
+
+  let endMonthDate = moment(startDate).endOf('month');
+  endMonthDate = maxDate ? moment.min(endMonthDate, maxDate) : endMonthDate;
+
+  const maxPrevAvailableMonth = moment(endMonthDate).add(-maxDaysCount + 1, 'day');
+  const maxNextAvailableMonth = moment(startDate).startOf('month').add(maxDaysCount - 1, 'day');
+
+  if (minDaysCount && startDate && !endDate
+    && (
+      month.isBetween(minPrevAvailableMonth, startDate, 'month', '()') || month.isBetween(startDate, minNextAvailableMonth, 'month', '()')
+    )
+  ) {
+    isDisabled = true;
+  }
+
+  if (maxDaysCount && startDate && !endDate
+    && (
+      month.isBefore(maxPrevAvailableMonth, 'month') || month.isAfter(maxNextAvailableMonth, 'month')
+    )
+  ) {
+    isDisabled = true;
+  }
 
   // отключаем даты вне валидного диапазона
   if (minDate && lastMonthDay.isBefore(minDate, 'day') || maxDate && firstMonthDay.isAfter(maxDate, 'day')) {

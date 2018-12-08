@@ -37,6 +37,8 @@ export function MonthPickerController() {
                   onHover={handleHover}
                   focus={focus}
                   styles={pickerProps.styles}
+                  minDaysCount={pickerProps.minDaysCount}
+                  maxDaysCount={pickerProps.maxDaysCount}
                 />
               );
             })}

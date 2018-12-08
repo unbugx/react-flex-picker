@@ -97,4 +97,6 @@ export interface IYearProps {
   onHover: (date: Moment) => void;
   focus: Focus;
   styles?: {[key: string]: string};
+  minDaysCount?: number;
+  maxDaysCount?: number;
 }
