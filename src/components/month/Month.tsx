@@ -4,7 +4,7 @@ import {Moment} from 'moment';
 import * as cn from 'classnames';
 import {Day} from '../day/Day';
 import {isDayHovered, isDaySelected, isSameDay, isWeekEnd, isDayDisabled} from '../../utils/day';
-import * as styles from './style/month.module.styl';
+import * as defaultStyles from './style/month.module.styl';
 
 export class Month extends React.PureComponent<IMonthProps> {
   constructor(props) {
@@ -33,6 +33,7 @@ export class Month extends React.PureComponent<IMonthProps> {
 
   render() {
     const {month, year, locale, showOutsideDays, startDate, endDate, hoveredDate, onTitleClick} = this.props;
+    const styles = {...defaultStyles, ...this.props.styles};
     const yearMonth = `${year}-${month}`;
     const localeData = moment.localeData(locale);
 
@@ -59,7 +60,7 @@ export class Month extends React.PureComponent<IMonthProps> {
     const days = Array.from({length: daysInMonth}, (v, k) => k + 1);
     days.unshift(...daysOfPrevMonth);
 
-    // Month may cross five or six weeks (35 or 42 days) so add days from next month to complete 5-th or 6-th week just for beauty perfomance
+    // Month may cross five or six weeks (35 or 42 days) so add days from next month to complete 5-th or 6-th week just for beauty performance
     const daysOfNextMonth = Array.from(
       {length: (days.length > 35 ? 42 : 35) - daysInMonth - firstDayOfMonth},
       (v, k) => !showOutsideDays ? null : k + 1,
@@ -67,12 +68,18 @@ export class Month extends React.PureComponent<IMonthProps> {
     days.push(...daysOfNextMonth);
 
     return (
-      <div className={styles.month}>
-        <div className='header'>
-          <div className={cn(styles.headerMonth, onTitleClick && styles.headerClickable)} onClick={this.handleTitleClick(currentMonth)}>
+      <div className={cn(styles.month)}>
+        <div className={cn(styles.headerMonthWrapper)}>
+          <div
+            className={cn(
+              styles.headerMonth,
+              onTitleClick && styles.headerClickable,
+            )}
+            onClick={this.handleTitleClick(currentMonth)}
+          >
             {localeData.months(currentMonth)}, {currentMonth.format('YYYY')}
           </div>
-          <div className={styles.headerWeekDays}>
+          <div className={cn(styles.headerWeekDays)}>
             {weekDays.map((monthName, index) => (<span key={index}>{monthName}</span>))}
           </div>
         </div>
@@ -110,6 +117,7 @@ export class Month extends React.PureComponent<IMonthProps> {
                   isHovered={isHovered}
                   onClick={isClickable ? this.handleClick(currentDay) : null}
                   onHover={this.handleHover(currentDay.isValid() ? currentDay : null)}
+                  styles={styles}
                 />
               );
             })}
@@ -136,4 +144,5 @@ export interface IMonthProps {
   onHover: (date: Moment) => void;
   minDaysCount?: number;
   maxDaysCount?: number;
+  styles?: {[key: string]: string};
 }

@@ -18,7 +18,7 @@ export function DayPickerController() {
         ];
 
         return (
-          <Wrapper>
+          <Wrapper styles={pickerProps.styles}>
             {monthList.map((month) => {
               const key = `${month.format('YYYY-MM')}`;
 
@@ -40,6 +40,7 @@ export function DayPickerController() {
                   onHover={handleHover}
                   minDaysCount={pickerProps.minDaysCount}
                   maxDaysCount={pickerProps.maxDaysCount}
+                  styles={pickerProps.styles}
                 />
               );
             })}

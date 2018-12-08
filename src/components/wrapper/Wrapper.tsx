@@ -1,19 +1,22 @@
 import * as React from 'react';
-import * as styles from './style/wrapper.module.styl';
+import * as cn from 'classnames';
+import * as defaultStyles from './style/wrapper.module.styl';
 import {PickerConsumer} from '../PickerProvider';
 
 export function Wrapper(props: IWrapperProps) {
+  const styles = {...defaultStyles, ...props.styles};
+
   return (
     <PickerConsumer>
       {({unitWrapper, unitWidth, translateX, currentMonth, isAnimating, height, pickerProps, handleHover}) => (
         <div
           ref={unitWrapper}
-          className={pickerProps.classNames.wrapperClass || styles.wrapper}
+          className={cn(styles.wrapper)}
           style={{width: unitWidth * pickerProps.unitCount || 'auto'}}
           onMouseLeave={() => handleHover(null)}
         >
           <div
-            className={isAnimating ? (pickerProps.classNames.transitionClass || styles.transition) : null}
+            className={isAnimating ? styles.transition : null}
             style={{
               height,
               width: 'auto',
@@ -30,4 +33,5 @@ export function Wrapper(props: IWrapperProps) {
 
 interface IWrapperProps {
   children: React.ReactNode;
+  styles?: {[key: string]: string};
 }

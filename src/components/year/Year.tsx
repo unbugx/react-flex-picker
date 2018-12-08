@@ -4,7 +4,7 @@ import {Moment} from 'moment';
 import * as cn from 'classnames';
 import {Day} from '../day/Day';
 import {isMonthDisabled, isMonthSelected, isSameMonth, isMonthHovered} from '../../utils/month';
-import * as styles from './style/year.module.styl';
+import * as defaultStyles from './style/year.module.styl';
 import {Focus} from '../PickerProvider';
 
 export class Year extends React.PureComponent<IYearProps> {
@@ -38,6 +38,7 @@ export class Year extends React.PureComponent<IYearProps> {
 
   render() {
     const {year, locale, startDate, endDate, hoveredDate, onTitleClick} = this.props;
+    const styles = {...defaultStyles, ...this.props.styles};
     const localeData = moment.localeData(locale);
     const monthList = Array.from(localeData.monthsShort());
 
@@ -61,7 +62,6 @@ export class Year extends React.PureComponent<IYearProps> {
 
               return (
                 <Day
-                  className={styles.yearMonth}
                   key={index}
                   text={month}
                   isDisabled={isDisabled}
@@ -72,6 +72,7 @@ export class Year extends React.PureComponent<IYearProps> {
                   isHovered={isHovered}
                   onClick={isClickable ? this.handleClick(currentMonth) : null}
                   onHover={this.handleHover(currentMonth)}
+                  styles={styles}
                 />
               );
             })}
@@ -95,4 +96,7 @@ export interface IYearProps {
   hoveredDate?: Moment | Moment[];
   onHover: (date: Moment) => void;
   focus: Focus;
+  styles?: {[key: string]: string};
+  minDaysCount?: number;
+  maxDaysCount?: number;
 }

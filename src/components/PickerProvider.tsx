@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import {Moment} from 'moment';
 import {Month} from './month/Month';
 import {Year} from './year/Year';
-import {initRange, pipe, reverseDates, setMonthBounds, setWeekBounds, validateRange} from '../utils/provider';
+// import {initRange, pipe, reverseDates, setMonthBounds, setWeekBounds, validateRange} from '../utils/provider';
 
 const PickerContext = React.createContext<IPickerState>(null);
 
@@ -12,7 +12,6 @@ export class PickerProvider extends React.Component<IPickerProps, IPickerState> 
   static defaultProps = {
     pickerType: 'day',
     unitCount: 1,
-    classNames: [],
     locale: 'en',
     isSingle: false,
   };
@@ -36,6 +35,7 @@ export class PickerProvider extends React.Component<IPickerProps, IPickerState> 
       return {
         endDate: props.initialEndDate,
         pickerProps: props,
+        unitWidth: null,
       };
     }
 
@@ -148,15 +148,94 @@ export class PickerProvider extends React.Component<IPickerProps, IPickerState> 
   }
 
   handleClick(day: Moment) {
-    const currentFocus = this.props.isSingle ? 'startDate' : this.state.focus;
+    const {locale, isWeeksSelection, maxDate, minDate, isSingle, maxDaysCount} = this.props;
+    const {focus, pickerType} = this.state;
 
-    const {startDate, endDate, nextFocus} = pipe(
-      initRange(this.props, this.state),
-      setWeekBounds(this.props, this.state),
-      reverseDates(this.props, this.state),
-      setMonthBounds(this.props, this.state),
-      validateRange(this.props, this.state),
-    )(day, currentFocus);
+    let newStartDate = moment(day);
+    let newEndDate = moment(day);
+    let currentFocus = focus;
+
+    if (isSingle) {
+      currentFocus = 'startDate';
+    }
+
+    // Если выбираются недели, то начальной датой диапазона будет первый день недели, по которой был сделан клик
+    if (isWeeksSelection && currentFocus === 'startDate') {
+      newStartDate = moment(day).locale(locale).startOf('week');
+    }
+
+    let startDate = currentFocus === 'startDate' ? newStartDate : this.state.startDate;
+    const maxEndDate = moment(startDate).add(maxDaysCount - 1, 'day');
+
+    // Если выбираются недели, то конечной датой диапазона будет последний день недели, по которой был сделан клик
+    if (isWeeksSelection && currentFocus === 'endDate') {
+      newEndDate = moment(day).locale(locale).endOf('week');
+
+      if (moment(newEndDate).locale(locale).isSame(moment(maxEndDate).locale(locale), 'week')) {
+        newEndDate = moment.min(newEndDate, maxEndDate);
+      }
+    }
+
+    let endDate = currentFocus === 'endDate' ? newEndDate : this.state.endDate;
+    let nextFocus: Focus = currentFocus === 'startDate' ? 'endDate' : 'startDate';
+
+    // если снова выбираем начальную дату, то сбрасываем конечную
+    if (currentFocus === 'startDate') {
+      endDate = null;
+    }
+
+    const maxStartDate = moment(startDate).add(-maxDaysCount + 1, 'day');
+
+    // если при выборе недель начальная дата меньше, чем выбранная, то конечная дата становится началом выбранном недели
+    // такое возможно, когда выделение происходит не слева направо, справа налево.
+    if (isWeeksSelection && currentFocus === 'endDate' && startDate.isAfter(day)) {
+      endDate = moment(day).locale(locale).startOf('week');
+    }
+
+    // если получилось так, что конечная дата меньше начальной (выделение справа налево), то меняем эти даты местами
+    if (currentFocus === 'endDate') {
+      if (endDate.isBefore(startDate, 'day')) {
+        endDate = startDate.clone();
+        startDate = moment(day);
+
+        if (isWeeksSelection) {
+          startDate = moment(day).locale(locale).startOf('week');
+
+          if (moment(startDate).locale(locale).isSame(moment(maxStartDate).locale(locale), 'week')) {
+            startDate = moment.max(startDate, maxStartDate);
+          }
+        }
+
+        if (pickerType === 'month') {
+          startDate = moment(startDate).startOf('month');
+          endDate = moment(endDate).endOf('month');
+          endDate = endDate && maxDate ? moment.min(maxDate, endDate) : endDate;
+
+          const maxStartDate = moment(endDate).add(-maxDaysCount + 1, 'day');
+
+          if (maxDaysCount) {
+            startDate = moment.max(startDate, maxStartDate);
+          }
+        }
+
+        nextFocus = 'startDate';
+      } else {
+        if (pickerType === 'month') {
+          startDate = moment(startDate).startOf('month');
+          endDate = endDate ? moment(endDate).endOf('month') : endDate;
+
+          const maxEndDate = moment(startDate).add(maxDaysCount - 1, 'day');
+
+          if (maxDaysCount && endDate && endDate.isSame(maxEndDate, 'month')) {
+            endDate = moment.min(endDate, maxEndDate);
+          }
+        }
+      }
+    }
+
+    // нужно убедиться, что новые выбранные даты не выходят за рамки разрешенного диапазона
+    endDate = endDate && maxDate ? moment.min(maxDate, endDate) : endDate;
+    startDate = startDate && minDate ? moment.max(minDate, startDate) : startDate;
 
     if (this.props.onDatesChange) {
       this.props.onDatesChange(startDate, endDate);
@@ -245,13 +324,9 @@ export interface IPickerProps {
   /** When picker width was changed sometimes this info can be useful when you build your own calendar */
   onChangeWidth?: (width: number) => void;
   /**
-   * Классы, которые можно переопредилить
-   * wrapperClass - Обертка пикера
+   *
    */
-  classNames?: {
-    wrapperClass?: string;
-    transitionClass?: string;
-  };
+  styles?: {[key: string]: string};
 }
 
 export interface IPickerState {

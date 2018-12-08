@@ -18,7 +18,7 @@ export function MonthPickerController() {
         ];
 
         return (
-          <Wrapper>
+          <Wrapper styles={pickerProps.styles}>
             {monthList.map((month) => {
               const key = `${month.format('YYYY-MM')}`;
               return (
@@ -36,6 +36,9 @@ export function MonthPickerController() {
                   onClick={handleClick}
                   onHover={handleHover}
                   focus={focus}
+                  styles={pickerProps.styles}
+                  minDaysCount={pickerProps.minDaysCount}
+                  maxDaysCount={pickerProps.maxDaysCount}
                 />
               );
             })}

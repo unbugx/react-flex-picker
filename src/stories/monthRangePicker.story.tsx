@@ -4,6 +4,7 @@ import {action} from '@storybook/addon-actions';
 import {PickerConsumer, PickerProvider} from '../components/PickerProvider';
 import {MonthPickerController} from '../components/MonthPickerController';
 import * as styles from './styles.styl';
+import * as customStyles from './customCalendarStyles.styl';
 import * as moment from 'moment';
 
 storiesOf('MonthRangePicker', module)
@@ -78,6 +79,26 @@ storiesOf('MonthRangePicker', module)
       </PickerConsumer>
     </PickerProvider>
   ))
+  .add('With minimum and maximum days in range', () => (
+    <PickerProvider
+      onDatesChange={action('onDatesChange')}
+      pickerType='month'
+      unitCount={3}
+      showOutsideDays
+      minDaysCount={64}
+      maxDaysCount={107}
+    >
+      <PickerConsumer>
+        {({handlePrevUnit, handleNextUnit}) => (
+          <div className={styles.calendar}>
+            <div className={styles.right} onClick={handleNextUnit}>&rarr;</div>
+            <div className={styles.left} onClick={handlePrevUnit}>&larr;</div>
+            <MonthPickerController />
+          </div>
+        )}
+      </PickerConsumer>
+    </PickerProvider>
+  ))
   .add('With russian locale', () => (
     <PickerProvider
       onDatesChange={action('onDatesChange')}
@@ -108,6 +129,23 @@ storiesOf('MonthRangePicker', module)
           <div className={styles.calendar}>
             <div className={styles.right} onClick={handleNextUnit}>&rarr;</div>
             <div className={styles.left} onClick={handlePrevUnit}>&larr;</div>
+            <MonthPickerController />
+          </div>
+        )}
+      </PickerConsumer>
+    </PickerProvider>
+  ))
+  .add('Custom styles', () => (
+    <PickerProvider
+      onDatesChange={action('onDatesChange')}
+      pickerType='month'
+      styles={customStyles}
+    >
+      <PickerConsumer>
+        {({handlePrevUnit, handleNextUnit}) => (
+          <div className={customStyles.calendar}>
+            <div className={customStyles.right} onClick={handleNextUnit}>&rarr;</div>
+            <div className={customStyles.left} onClick={handlePrevUnit}>&larr;</div>
             <MonthPickerController />
           </div>
         )}

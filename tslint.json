@@ -19,7 +19,8 @@
     "function-name": false,
     "object-literal-sort-keys": false,
     "align": false,
-    "object-shorthand-properties-first": false
+    "object-shorthand-properties-first": false,
+    "no-shadowed-variable": false
   },
   "rulesDirectory": []
 }
