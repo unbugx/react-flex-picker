@@ -7,6 +7,15 @@ $monthHeight = 55px;
   display: inline-block;
   vertical-align: top;
   white-space: normal;
+
+  .day {
+    cursor: pointer;
+    display: inline-block;
+    width: $monthHeight;
+    height: $monthHeight;
+    text-align: center;
+    line-height: $monthHeight;
+  }
 }
 
 .headerYear {
@@ -17,15 +26,6 @@ $monthHeight = 55px;
   width: 100%;
   cursor: default;
   border-bottom: 1px grey solid;
-}
-
-.yearMonth {
-  cursor: pointer;
-  display: inline-block;
-  width: $monthHeight;
-  height: $monthHeight;
-  text-align: center;
-  line-height: $monthHeight;
 }
 
 .headerClickable {

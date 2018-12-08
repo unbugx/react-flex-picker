@@ -4,6 +4,7 @@ import {action} from '@storybook/addon-actions';
 import {PickerConsumer, PickerProvider} from '../components/PickerProvider';
 import {DayPickerController} from '../components/DayPickerController';
 import * as styles from './styles.styl';
+import * as customStyles from './customCalendarStyles.styl';
 import * as moment from 'moment';
 
 storiesOf('DayRangePicker', module)
@@ -155,6 +156,23 @@ storiesOf('DayRangePicker', module)
           <div className={styles.calendar}>
             <div className={styles.right} onClick={handleNextUnit}>&rarr;</div>
             <div className={styles.left} onClick={handlePrevUnit}>&larr;</div>
+            <DayPickerController />
+          </div>
+        )}
+      </PickerConsumer>
+    </PickerProvider>
+  ))
+  .add('Custom styles', () => (
+    <PickerProvider
+      onDatesChange={action('onDatesChange')}
+      unitCount={3}
+      styles={customStyles}
+    >
+      <PickerConsumer>
+        {({handlePrevUnit, handleNextUnit}) => (
+          <div className={customStyles.calendar}>
+            <div className={customStyles.right} onClick={handleNextUnit}>&rarr;</div>
+            <div className={customStyles.left} onClick={handlePrevUnit}>&larr;</div>
             <DayPickerController />
           </div>
         )}

@@ -1,0 +1,149 @@
+.calendar {
+  background: #29323f;
+  position: relative;
+  display: inline-block;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+  border-radius: 3px;
+  padding: 10px 5px;
+}
+
+.left, .right {
+  user-select: none;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+  color: #e7d84f;
+  padding: 0 5px;
+  font-weight: bold;
+}
+
+.left {
+  left: 10px;
+  float: left;
+}
+
+.right {
+  right: 10px;
+  float: right;
+}
+
+.wrapper {
+  background: #29323f;
+  overflow: hidden;
+  display: inline-block;
+  user-select: none;
+  font-family: 'Courier', sans-serif;
+
+  > div {
+    white-space: nowrap;
+  }
+}
+
+.month {
+  margin: 0 10px;
+  width: 280px;
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+
+  .day {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    border: 2px solid #29323f;
+    color: #fff;
+    border-radius: 50%;
+  }
+
+  .headerMonth {
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    cursor: default;
+    color: #fcee6d;
+  }
+
+  .headerWeekDays {
+    border-bottom: 1px grey solid;
+
+    span {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      cursor: default;
+      color: #999;
+    }
+  }
+
+  .dayClickable:hover {
+    border-color: #e7d84f;
+  }
+
+  .dayFirstSelected, .dayLastSelected {
+    border-color: #e7d84f;
+    background: #e7d84f !important;
+    color: #29323f;
+    font-weight: bold;
+  }
+
+  .daySelected, .dayHovered {
+    border-color: #e7d84f;
+    background: #29323f;
+  }
+}
+
+.year {
+  margin: 0 10px;
+  width: 220px;
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+
+  .day {
+    cursor: pointer;
+    display: inline-block;
+    width: 51px;
+    height: 51px;
+    text-align: center;
+    line-height: 51px;
+    border: 2px solid #29323f;
+    color: #fff;
+    border-radius: 50%;
+  }
+
+  .headerYear {
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    cursor: default;
+    color: #fcee6d;
+    border-bottom: 1px grey solid;
+  }
+
+  .dayClickable:hover {
+    border-color: #e7d84f;
+  }
+
+  .dayFirstSelected, .dayLastSelected {
+    border-color: #e7d84f;
+    background: #e7d84f !important;
+    color: #29323f;
+    font-weight: bold;
+  }
+
+  .daySelected, .dayHovered {
+    border-color: #e7d84f;
+    background: #29323f;
+  }
+}

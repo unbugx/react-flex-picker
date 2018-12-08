@@ -1,12 +1,8 @@
 import * as React from 'react';
 import * as cn from 'classnames';
-import * as styles from './style/day.module.styl';
+import * as defaultStyles from './style/day.module.styl';
 
 export class Day extends React.PureComponent<IDayProps> {
-  static defaultProps = {
-    className: styles.day,
-  };
-
   renderDay() {
     const {text} = this.props;
 
@@ -28,13 +24,14 @@ export class Day extends React.PureComponent<IDayProps> {
       isHovered,
       onClick,
       onHover,
-      className,
     } = this.props;
+
+    const styles = {...defaultStyles, ...this.props.styles};
 
     return (
       <span
         className={cn(
-          className,
+          styles.day,
           isDisabled && styles.dayDisabled,
           isDayOff && styles.dayOff,
           isSelected && styles.daySelected,
@@ -63,5 +60,5 @@ interface IDayProps {
   isHovered?: boolean;
   onClick?: (e) => void;
   onHover?: (e) => void;
-  className?: string;
+  styles?: {[key: string]: string};
 }

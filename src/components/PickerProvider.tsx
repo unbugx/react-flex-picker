@@ -12,7 +12,6 @@ export class PickerProvider extends React.Component<IPickerProps, IPickerState> 
   static defaultProps = {
     pickerType: 'day',
     unitCount: 1,
-    classNames: [],
     locale: 'en',
     isSingle: false,
   };
@@ -245,13 +244,9 @@ export interface IPickerProps {
   /** When picker width was changed sometimes this info can be useful when you build your own calendar */
   onChangeWidth?: (width: number) => void;
   /**
-   * Классы, которые можно переопредилить
-   * wrapperClass - Обертка пикера
+   *
    */
-  classNames?: {
-    wrapperClass?: string;
-    transitionClass?: string;
-  };
+  styles?: {[key: string]: string};
 }
 
 export interface IPickerState {
