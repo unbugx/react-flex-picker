@@ -88,4 +88,98 @@ Widgets of day picker and month picker accordingly.
 
 #### Examples
 
-Coming soon...
+For more examples go to https://unbugx.github.io/react-flex-picker/ and 
+source code of storybook examples https://github.com/unbugx/react-flex-picker/tree/master/src/stories
+
+Below a few more interested examples.
+
+##### Date presets and Apply button
+
+```
+import * as React from 'react';
+import {PickerProvider, PickerConsumer, DayPickerController} from 'react-flex-picker';
+import * as moment from 'moment';
+
+const today = moment();
+const yesterday = moment().add(-1, 'day');
+const nextMonthStart = moment().add(1, 'month').startOf('month');
+const nextMonthEnd = moment().add(1, 'month').endOf('month');
+    
+class CalendarWithPresets extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      initialStartDate: moment().add(-7, 'day'),
+      initialEndDate: moment(),
+      selectedStartDate: moment().add(-7, 'day'),
+      selectedEndDate: moment(),
+    };
+
+    this.handlePreset = this.handlePreset.bind(this);
+    this.handleDatesChange = this.handleDatesChange.bind(this);
+    this.handleApply = this.handleApply.bind(this);
+  }
+
+  handlePreset(newStartDate, newEndDate) {
+    this.setState({
+      initialStartDate: newStartDate,
+      initialEndDate: newEndDate,
+      selectedStartDate: newStartDate,
+      selectedEndDate: newEndDate,
+    });
+  }
+
+  handleDatesChange(selectedStartDate, selectedEndDate) {
+    this.setState({selectedStartDate, selectedEndDate});
+  }
+
+  handleApply() {
+    // you can execute any callback here to pass selected data and hide calendar
+    console.log(this.state.selectedStartDate.format('DD.MM.YYYY'), this.state.selectedEndDate.format('DD.MM.YYYY'));
+  }
+
+  render() {    
+    return (
+      <PickerProvider
+        onDatesChange={this.handleDatesChange}
+        unitCount={3}
+        showOutsideDays
+        initialStartDate={this.state.initialStartDate}
+        initialEndDate={this.state.initialEndDate}
+      >
+        <PickerConsumer>
+          {({handlePrevUnit, handleNextUnit}) => (
+            <div className={styles.calendar}>
+              <div className={styles.right} onClick={handleNextUnit}>&rarr;</div>
+              <div className={styles.left} onClick={handlePrevUnit}>&larr;</div>
+              <DayPickerController />
+              <div>
+                <button
+                  onClick={() => this.handlePreset(today, today)}
+                >
+                  Today
+                </button>
+                <button
+                  onClick={() => this.handlePreset(yesterday, yesterday)}
+                >
+                  Yesterday
+                </button>
+                <button
+                  onClick={() => this.handlePreset(nextMonthStart, nextMonthEnd)}
+                >
+                  Next month
+                </button>
+
+                <button onClick={this.handleApply}>Apply</button>
+              </div>
+            </div>
+          )}
+        </PickerConsumer>
+      </PickerProvider>
+    );
+  }
+}
+```
+
+More examples are coming soon...
