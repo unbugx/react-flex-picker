@@ -17,7 +17,7 @@ npm install --save react-flex-picker
 
 Add the following import to your application if you use Webpack with CSS loader:
 
-```
+```js
 import 'react-flex-picker/dist/react-flex-picker.css';
 ```
 
@@ -26,7 +26,7 @@ import 'react-flex-picker/dist/react-flex-picker.css';
 Using a few simple components you can build your own calendar with any logic you want. 
 Just import these components:
 
-```
+```js
 import {PickerProvider, PickerConsumer, DayPickerController, MonthPickerController} from 'react-flex-picker';
 ```
 
@@ -60,7 +60,7 @@ Works as common consumer in context api.
 It takes function as child that has one arguments with set of useful properties. 
 The most useful properties are `handlePrevUnit` and `handleNextUnit` to switch months or years.   
 
-```
+```js
 import * as React from 'react';
 import {PickerProvider, PickerConsumer, DayPickerController} from 'react-flex-picker';
 import * as moment from 'moment';
@@ -91,14 +91,14 @@ Widgets of day picker and month picker accordingly.
 Here it's supposed you use webpack and css-loader. 
 Css-loader allows you import styles as object with classes in keys:
 
-```
+```js
 import * as styles from '../styles.styl';
 console.log(styles);
 ```
 
 It will print out object like this:
 
-```
+```js
 {
   day: "customCalendarStyles___day"
   dayClickable: "customCalendarStyles___dayClickable"
@@ -111,7 +111,7 @@ Where `key` is class name in `styles.styl` file and value is dynamic class name 
 
 To override existing styles just pass `styles` property to PickerProvider. Look at example below:
 
-```
+```css
 // calendar.styl
 
 .wrapper {
@@ -188,7 +188,7 @@ To override existing styles just pass `styles` property to PickerProvider. Look 
 }
 ```
 
-```
+```js
 import * as React from 'react';
 import {PickerProvider, PickerConsumer, DayPickerController} from 'react-flex-picker';
 import * as moment from 'moment';
@@ -227,7 +227,7 @@ Below a few more interested examples.
 
 ##### Date presets and Apply button
 
-```
+```js
 import * as React from 'react';
 import {PickerProvider, PickerConsumer, DayPickerController} from 'react-flex-picker';
 import * as moment from 'moment';
