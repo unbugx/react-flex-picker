@@ -193,7 +193,7 @@ import * as React from 'react';
 import {PickerProvider, PickerConsumer, DayPickerController} from 'react-flex-picker';
 import * as moment from 'moment';
 
-import * as styles from './calendar.styl';
+import * as customStyles from './calendar.styl';
 
 <PickerProvider
   onDatesChange={() => {}}
